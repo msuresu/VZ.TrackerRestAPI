@@ -28,6 +28,17 @@ namespace VZ.RestService
             Objtracker.InsertUserActivity(objUserActiveity);
             return "Sucess";
         }
+        public string InsertPagePerformance(PagePerformance objPerformance)
+        {
+            TrackerModule objTracker = new TrackerModule();
+            objTracker.InsertPagePerformance(objPerformance);
+            return "Success";
+        }
+        public List<PagePerformance> GetPagePerformance()
+        {
+            TrackerModule objTracker = new TrackerModule();
+            return objTracker.GetPagePerformance().PagePerformance.ToList();
+        }
     }
 
 }

@@ -1,14 +1,15 @@
 <?xml version="1.0"?>
 <UserActivity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <ActivityType />
-  <TrackerId>meyacl231a</TrackerId>
+  <ActivityType>PageType</ActivityType>
+  <TrackerId>maDB5qeIZ9</TrackerId>
   <DomainName>localhost</DomainName>
+  <Date>2015-10-31T20:56:29.172Z</Date>
   <PagePath>http://localhost:55020/</PagePath>
   <PageTitle>Index - My ASP.NET Application</PageTitle>
   <PageType />
   <State />
   <Country />
-  <IPAddress />
+  <IPAddress>192.76.80.74</IPAddress>
   <SessionId />
   <UserId />
   <ElementName />

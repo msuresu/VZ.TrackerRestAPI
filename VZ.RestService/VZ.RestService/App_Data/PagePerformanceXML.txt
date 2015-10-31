@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <PagePerformances>
   <PagePerformance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <PagePath>/Home/Index</PagePath>
-    <StartTime>10:20:00</StartTime>
-    <EndTime>10:20:30</EndTime>
-    <LoadTime>00:00:30</LoadTime>
+    <PagePath>http://localhost:55020/</PagePath>
+    <StartTime>2015-10-31T17:34:11.744Z</StartTime>
+    <EndTime>2015-10-31T17:34:14.192Z</EndTime>
+    <LoadTime>0.026</LoadTime>
   </PagePerformance>
   <PagePerformance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <PagePath>/Home/Index</PagePath>
-    <StartTime>10:20:00</StartTime>
-    <EndTime>10:20:30</EndTime>
-    <LoadTime>00:00:30</LoadTime>
+    <PagePath>http://localhost:53373/TrackerRestService.svc/GetPagePerformance</PagePath>
+    <StartTime>2015-10-31T20:26:25.655Z</StartTime>
+    <EndTime>2015-10-31T20:26:31.519Z</EndTime>
+    <LoadTime>0</LoadTime>
   </PagePerformance>
 </PagePerformances>

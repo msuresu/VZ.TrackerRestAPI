@@ -22,6 +22,18 @@ namespace VZ.RestService
                     ResponseFormat = WebMessageFormat.Json,
                     UriTemplate = "InsertUserActivity")]
         string InsertUserActivity(UserActivity objUserActiveity);
+        [OperationContract]
+        [WebInvoke(Method = "POST",
+                    RequestFormat = WebMessageFormat.Json,
+                    ResponseFormat = WebMessageFormat.Json,
+                    UriTemplate = "InsertPagePerformance")]
+        string InsertPagePerformance(PagePerformance objPerformance);
+        [OperationContract]
+        [WebInvoke(Method = "GET",
+                    RequestFormat = WebMessageFormat.Json,
+                    ResponseFormat = WebMessageFormat.Json,
+                    UriTemplate = "GetPagePerformance")]
+        List<PagePerformance> GetPagePerformance();
 
         [OperationContract]
         [WebInvoke(UriTemplate = "Test", Method = "GET")]
@@ -62,8 +74,9 @@ namespace VZ.RestService
         public string ElementType { get; set; }
 
     }
+    [Serializable]
     [DataContract]
-    public class PerformanceActivity
+    public class PagePerformance
     {
         [DataMember]
         public string PagePath { get; set; }
@@ -73,20 +86,26 @@ namespace VZ.RestService
         public string EndTime { get; set; }
         [DataMember]
         public string LoadTime { get; set; }
+        [DataMember]
+        public string BrowserInfo { get; set; }
+
     }
 
     public class TrackerModule
     {
         public string USERACTIVITYFILEPATH = Path.Combine(HostingEnvironment.ApplicationPhysicalPath, "App_Data", "XML.txt");//Server.MapPath("~/App_Data/CustomerData.json");"D:\\XML.txt";
         public string USERACTIVITYTEMPFILEPATH = Path.Combine(HostingEnvironment.ApplicationPhysicalPath, "App_Data", "XMLTemp.txt");//"D:\\XMLTemp.txt";
-        public string PAGEPERFORMANCEFILEPATH = Path.Combine(HostingEnvironment.ApplicationPhysicalPath, "App_Data", "D:\\PagePerformanceXML.txt");//"D:\\PagePerformanceXML.txt";
-        public string PAGEPERFORMANCETEMPFILEPATH = Path.Combine(HostingEnvironment.ApplicationPhysicalPath, "App_Data", "D:\\PagePerformanceXMLTemp.txt");// "D:\\PagePerformanceXMLTemp.txt";
+        public string PAGEPERFORMANCEFILEPATH = Path.Combine(HostingEnvironment.ApplicationPhysicalPath, "App_Data", "PagePerformanceXML.txt");//"D:\\PagePerformanceXML.txt";
+        public string PAGEPERFORMANCETEMPFILEPATH = Path.Combine(HostingEnvironment.ApplicationPhysicalPath, "App_Data", "PagePerformanceXMLTemp.txt");// "D:\\PagePerformanceXMLTemp.txt";
 
         public void InsertUserActivity(UserActivity objUserActivity)
         {
             SerializeUserActivityObject(objUserActivity, USERACTIVITYTEMPFILEPATH);
         }
-
+        public void InsertPagePerformance(PagePerformance objPagePerformance)
+        {
+            SerializePagePerformanceObject(objPagePerformance, PAGEPERFORMANCETEMPFILEPATH);
+        }
 
 
 
@@ -106,17 +125,17 @@ namespace VZ.RestService
             public PagePerformance[] PagePerformance { get; set; }
         }
 
-        
-      
 
-        [Serializable]
-        public class PagePerformance
-        {
-            public string PagePath { get; set; }
-            public string StartTime { get; set; }
-            public string EndTime { get; set; }
-            public string LoadTime { get; set; }
-        }
+
+
+        //[Serializable]
+        //public class PagePerformance
+        //{
+        //    public string PagePath { get; set; }
+        //    public string StartTime { get; set; }
+        //    public string EndTime { get; set; }
+        //    public string LoadTime { get; set; }
+        //}
 
         public class SiteMetrics
         {
@@ -313,7 +332,7 @@ namespace VZ.RestService
 
                         objPagePerViews.UserId = distinctUserId.UserId;
                         objPagePerViews.UniqueCount = intUniqueVisitCount;
-                        objPagePerViews.Date =Convert.ToDateTime(distinctUserId.Date).ToString("MM-dd-yyyy");
+                        objPagePerViews.Date = Convert.ToDateTime(distinctUserId.Date).ToString("MM-dd-yyyy");
                         lstUniqueVisits.Add(objPagePerViews);
                     }
                 }
@@ -340,7 +359,20 @@ namespace VZ.RestService
             }
         }
 
+        public PagePerformances GetPagePerformance()
+        {
+            PagePerformances lstPagePer = null;
+            try
+            {
 
+                lstPagePer = DeSerializeObject<PagePerformances>(PAGEPERFORMANCEFILEPATH);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return lstPagePer;
+        }
 
 
 
@@ -461,11 +493,11 @@ namespace VZ.RestService
                     newDoc.Load(PAGEPERFORMANCETEMPFILEPATH);
 
                     //Use Xpath to specify node
-                    XmlNode insertNode = xmldoc.SelectSingleNode("PagePerformances");
-                    XmlNode newObj = newDoc.SelectSingleNode("PagePerformance");
-                    XmlElement news = xmldoc.CreateElement("PagePerformance");   // creating the wrapper news node
+                    XmlNode insertNode = xmldoc.SelectSingleNode("PerformanceActivities");
+                    XmlNode newObj = newDoc.SelectSingleNode("PerformanceActivity");
+                    XmlElement news = xmldoc.CreateElement("PerformanceActivity");   // creating the wrapper news node
                     //Import the node into the context of the new document. NB the second argument = true imports all children of the node, too
-                    XmlNode importNewsItem = xmldoc.ImportNode(newDoc.SelectSingleNode("PagePerformance"), true);
+                    XmlNode importNewsItem = xmldoc.ImportNode(newDoc.SelectSingleNode("PerformanceActivity"), true);
                     //news.AppendChild(importNewsItem);
                     insertNode.AppendChild(importNewsItem);
 
