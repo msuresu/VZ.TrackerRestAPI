@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<UserActivity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ActivityType />
+  <TrackerId>meyacl231a</TrackerId>
+  <DomainName>localhost</DomainName>
+  <PagePath>http://localhost:55020/</PagePath>
+  <PageTitle>Index - My ASP.NET Application</PageTitle>
+  <PageType />
+  <State />
+  <Country />
+  <IPAddress />
+  <SessionId />
+  <UserId />
+  <ElementName />
+  <ElementType />
+</UserActivity>

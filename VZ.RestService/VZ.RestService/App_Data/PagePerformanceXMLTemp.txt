@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<PagePerformance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <PagePath>/Home/Index</PagePath>
+  <StartTime>10:20:00</StartTime>
+  <EndTime>10:20:30</EndTime>
+  <LoadTime>00:00:30</LoadTime>
+</PagePerformance>

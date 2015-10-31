@@ -25,7 +25,9 @@ namespace VZ.RestService
         public string InsertUserActivity(UserActivity objUserActiveity)
         {
             TrackerModule Objtracker = new TrackerModule();
+            Objtracker.InsertUserActivity(objUserActiveity);
             return "Sucess";
         }
     }
+
 }

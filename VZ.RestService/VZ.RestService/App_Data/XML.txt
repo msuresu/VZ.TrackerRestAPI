@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<UserActivities>
+  <UserActivity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <DomainName>localhost</DomainName>
+    <TrackerId>bcd2345</TrackerId>
+    <Date>2015-10-29T07:03:18.0112155-07:00</Date>
+    <PagePath>/Home/Index</PagePath>
+    <PageTitle>Dashboard</PageTitle>
+    <PageType>Home</PageType>
+    <State>NewYork</State>
+    <Country>US</Country>
+  </UserActivity>
+  <UserActivity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <DomainName>localhost</DomainName>
+    <TrackerId>bcd2345</TrackerId>
+    <Date>2015-10-29T07:09:11.793143-07:00</Date>
+    <PagePath>/Home/Index</PagePath>
+    <PageTitle>Dashboard</PageTitle>
+    <PageType>Home</PageType>
+    <State>NewYork</State>
+    <Country>US</Country>
+  </UserActivity>
+  <UserActivity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <ActivityType />
+    <TrackerId>8Z9IZsetAl</TrackerId>
+    <PagePath>http://localhost:55020/</PagePath>
+    <PageTitle>Index - My ASP.NET Application</PageTitle>
+    <PageType />
+    <State />
+    <Country />
+  </UserActivity>
+  <UserActivity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <ActivityType />
+    <TrackerId>silx5oVu4w</TrackerId>
+    <PagePath>http://localhost:55020/</PagePath>
+    <PageTitle>Index - My ASP.NET Application</PageTitle>
+    <PageType />
+    <State />
+    <Country />
+  </UserActivity>
+  <UserActivity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <ActivityType />
+    <TrackerId>LONliSx2iv</TrackerId>
+    <PagePath>http://localhost:55020/</PagePath>
+    <PageTitle>Index - My ASP.NET Application</PageTitle>
+    <PageType />
+    <State />
+    <Country />
+  </UserActivity>
+  <UserActivity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <ActivityType />
+    <TrackerId>meyacl231a</TrackerId>
+    <DomainName>localhost</DomainName>
+    <PagePath>http://localhost:55020/</PagePath>
+    <PageTitle>Index - My ASP.NET Application</PageTitle>
+    <PageType />
+    <State />
+    <Country />
+    <IPAddress />
+    <SessionId />
+    <UserId />
+    <ElementName />
+    <ElementType />
+  </UserActivity>
+</UserActivities>
