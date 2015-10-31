@@ -38,6 +38,11 @@ namespace VZ.RestService
         [OperationContract]
         [WebInvoke(UriTemplate = "Test", Method = "GET")]
         string Test();
+        [OperationContract]
+        [WebInvoke(Method = "GET",
+                    ResponseFormat = WebMessageFormat.Json,
+                    UriTemplate = "GetDashboard/{DomainName}")]
+        TrackerDashboard GetDasboardContent(string DomainName);
 
     }
     [Serializable]
@@ -73,6 +78,64 @@ namespace VZ.RestService
         [DataMember]
         public string ElementType { get; set; }
 
+    }
+    [DataContract]
+    public class TrackerDashboard
+    {
+        [DataMember]
+        public List<SiteMetrics> objSiteMetrics { get; set; }
+        [DataMember]
+        public TotalVisits objTotalVisits { get; set; }
+        [DataMember]
+        public List<PagesPerViews> objPagesPerViews { get; set; }
+        [DataMember]
+        public List<UniqueVisits> objUniqueVisits { get; set; }
+        [DataMember]
+        public VisterType objVisterType { get; set; }
+        [DataMember]
+        public List<TopContents> objTopContents { get; set; }
+    }
+    public class SiteMetrics
+    {
+        public string Date { get; set; }
+        public int VisitCount { get; set; }
+    }
+
+    public class TotalVisits
+    {
+
+        public int VisitCount { get; set; }
+        public List<SiteMetrics> SiteMetricDataPoints { get; set; }
+    }
+
+    public class PagesPerViews
+    {
+        public string TrackerId { get; set; }
+        public int PagePerViewCount { get; set; }
+        public string Date { get; set; }
+    }
+
+    public class UniqueVisits
+    {
+        public string UserId { get; set; }
+        public string Date { get; set; }
+        public int UniqueCount { get; set; }
+    }
+    public class TopContents
+    {
+        public string PagePath { get; set; }
+        public string Date { get; set; }
+        public string PageTitle { get; set; }
+        public int PageViwes { get; set; }
+
+        
+    }
+    public class VisterType
+    {
+        public double Newvistor { get; set; }
+        public double Repeatvistor { get; set; }
+        public double NewvistorPer { get; set; }
+        public double RepeatvistorPer { get; set; }
     }
     [Serializable]
     [DataContract]
@@ -137,33 +200,7 @@ namespace VZ.RestService
         //    public string LoadTime { get; set; }
         //}
 
-        public class SiteMetrics
-        {
-            public string Date { get; set; }
-            public int VisitCount { get; set; }
-        }
-
-        public class TotalVisits
-        {
-
-            public int VisitCount { get; set; }
-            public List<SiteMetrics> SiteMetricDataPoints { get; set; }
-        }
-
-        public class PagesPerViews
-        {
-            public string TrackerId { get; set; }
-            public int PagePerViewCount { get; set; }
-            public string Date { get; set; }
-        }
-
-        public class UniqueVisits
-        {
-            public string UserId { get; set; }
-            public string Date { get; set; }
-            public int UniqueCount { get; set; }
-        }
-
+      
 
 
         //public ActionResult About()
@@ -213,27 +250,102 @@ namespace VZ.RestService
         //    return View();
         //}
 
-
-
-        public List<SiteMetrics> GetSiteMetrics(int pastDays = 7)
+        public TrackerDashboard GetDasboardConetnt(string DomainName)
         {
-            UserActivities lstUserActivities = null;
+            UserActivities lstUserActivities = DeSerializeObject<UserActivities>(USERACTIVITYFILEPATH);
+            //  lstUserActivities = lstUserActivities.UserActivity.Where(k=>k.DomainName==DomainName);
+            TrackerDashboard objTrackerDashboard = new TrackerDashboard();
+            objTrackerDashboard.objSiteMetrics = GetSiteMetrics(lstUserActivities);
+            objTrackerDashboard.objUniqueVisits = GetUniqueVisits(lstUserActivities);
+            objTrackerDashboard.objPagesPerViews = GetPagesViews(lstUserActivities);
+            objTrackerDashboard.objVisterType = GetVisitorType(lstUserActivities);
+            objTrackerDashboard.objTopContents = GetActivityContents(lstUserActivities);
+            return objTrackerDashboard;
+        }
+        public List<TopContents> GetActivityContents(UserActivities ltUserActivities, int pastDays = 7)
+        {
+            List<TopContents> lstTopContents = new List<TopContents>();
+            UserActivities lstUserActivities = ltUserActivities;
+            var checkDate = DateTime.Now.AddDays(-pastDays);
+
+            //var arrDistinctDate = lstUserActivities.UserActivity.Where(x => Convert.ToDateTime(x.Date) >= checkDate).GroupBy(i => i.Date, (key, group) => group.First()).ToArray();
+            var arrActivities = lstUserActivities.UserActivity.Where(x => !string.IsNullOrWhiteSpace(x.Date) && Convert.ToDateTime(x.Date).Date >= checkDate.Date).ToList();
+            foreach (var activity in arrActivities)
+            {
+                TopContents content = new TopContents();
+                content.Date = Convert.ToDateTime(activity.Date).Date.ToShortDateString();
+                content.PagePath = activity.PagePath;
+                content.PageTitle = activity.PageTitle;
+                content.PageViwes = lstUserActivities.UserActivity.Where(x => !string.IsNullOrWhiteSpace(x.Date) && Convert.ToDateTime(x.Date).Date == Convert.ToDateTime(activity.Date).Date).GroupBy(k => new { k.PagePath, k.PageTitle }).Count();
+                lstTopContents.Add(content);
+            }
+
+            return lstTopContents;
+        }
+        public VisterType GetVisitorType(UserActivities ltUserActivities, int pastDays = 7)
+        {
+            VisterType objVisterType = new VisterType();
+            var ltUserActivities1 = ltUserActivities.UserActivity.GroupBy(k => k.IPAddress).ToList();
+            double newViste = 0;
+            double repeatViste = 0;
+            foreach (var lstactivi in ltUserActivities1)
+            {
+                if (lstactivi.Count() == 1)
+                {
+                    newViste += 1;
+                }
+                else
+                {
+                    repeatViste += lstactivi.Count();
+                }
+            }
+            objVisterType.Newvistor = newViste;
+            objVisterType.Repeatvistor = repeatViste;
+            double total = 0;
+            if (newViste != 0 && repeatViste != 0)
+            {
+                total = newViste + repeatViste;
+            }
+            else if (newViste != 0)
+            {
+                total = newViste;
+            }
+            else
+            {
+                total = repeatViste;
+            }
+            if (newViste != 0 && total != 0)
+            {
+                objVisterType.NewvistorPer = Math.Round(((newViste / total) * 100), 2);
+            }
+            if (repeatViste != 0 && total != 0)
+            {
+                objVisterType.RepeatvistorPer = Math.Round(((repeatViste / total) * 100), 2);
+            }
+
+            return objVisterType;
+        }
+
+        public List<SiteMetrics> GetSiteMetrics(UserActivities ltUserActivities, int pastDays = 7)
+        {
+            UserActivities lstUserActivities = ltUserActivities;
             List<SiteMetrics> lstSiteMetrics = new List<SiteMetrics>();
             try
             {
 
 
-                lstUserActivities = DeSerializeObject<UserActivities>(USERACTIVITYFILEPATH);
+                //  lstUserActivities = DeSerializeObject<UserActivities>(USERACTIVITYFILEPATH);
                 var checkDate = DateTime.Now.AddDays(-pastDays);
 
                 //var arrDistinctDate = lstUserActivities.UserActivity.Where(x => Convert.ToDateTime(x.Date) >= checkDate).GroupBy(i => i.Date, (key, group) => group.First()).ToArray();
-                var arrDistinctDate = lstUserActivities.UserActivity.Where(x => Convert.ToDateTime(x.Date) >= checkDate).Select(x => Convert.ToDateTime(x.Date).Date).Distinct().ToArray();
+                var arrDistinctDate = lstUserActivities.UserActivity.Where(x => !string.IsNullOrWhiteSpace(x.Date) && Convert.ToDateTime(x.Date).Date >= checkDate.Date).Select(x => Convert.ToDateTime(x.Date).Date).Distinct().ToArray();
                 int intVisitCount = 0;
                 foreach (var date in arrDistinctDate)
                 {
                     if (date.Date != null)
                     {
-                        intVisitCount = lstUserActivities.UserActivity.Count(x => Convert.ToDateTime(x.Date).Date == date.Date);
+                        //intVisitCount = lstUserActivities.UserActivity.Count(x => Convert.ToDateTime(x.Date).Date == date.Date);
+                        intVisitCount = lstUserActivities.UserActivity.Where(k => !string.IsNullOrWhiteSpace(k.Date) && Convert.ToDateTime(k.Date).Date == date.Date).GroupBy(l => l.TrackerId).Count();
                         SiteMetrics objSiteMetrics = new SiteMetrics();
 
                         objSiteMetrics.Date = date.Date.ToString("MM-dd-yyyy");
@@ -252,38 +364,54 @@ namespace VZ.RestService
 
         }
 
-        public TotalVisits GetTotalVisits(int pastDays = 7)
+
+        public List<PagesPerViews> GetPagesViews(UserActivities ltUserActivities, int pastDays = 7)
         {
-            UserActivities lstUserActivities = null;
-
-            TotalVisits objTotalVisists = new TotalVisits();
-            try
-            {
-                lstUserActivities = DeSerializeObject<UserActivities>(USERACTIVITYFILEPATH);
-
-                var intTotalVisitCount = lstUserActivities.UserActivity.Count();
-
-                List<SiteMetrics> lstSiteMetrics = GetSiteMetrics(pastDays);
-
-                objTotalVisists.VisitCount = intTotalVisitCount;
-                objTotalVisists.SiteMetricDataPoints = lstSiteMetrics;
-            }
-            catch
-            {
-            }
-
-            return objTotalVisists;
-        }
-
-        public List<PagesPerViews> GetPagesPerViews(int pastDays = 7)
-        {
-            UserActivities lstUserActivities = null;
+            UserActivities lstUserActivities = ltUserActivities;
 
             List<PagesPerViews> lstPagePerViews = new List<PagesPerViews>();
 
             try
             {
-                lstUserActivities = DeSerializeObject<UserActivities>(USERACTIVITYFILEPATH);
+                var checkDate = DateTime.Now.AddDays(-pastDays);
+                // lstUserActivities = DeSerializeObject<UserActivities>(USERACTIVITYFILEPATH);
+                //  var arrDistinctSessiionId = lstUserActivities.UserActivity.GroupBy(i => i.TrackerId, (key, group) => group.First()).ToArray();
+                //   var arrDistinctSessiionId = lstUserActivities.UserActivity.GroupBy(i => i.PagePath, (key, group) => group.First()).ToArray();
+                var arrDistinctSessiionId = lstUserActivities.UserActivity.Where(x => !string.IsNullOrWhiteSpace(x.Date) && Convert.ToDateTime(x.Date).Date >= checkDate.Date).Select(x => Convert.ToDateTime(x.Date).Date).Distinct().ToArray();
+                //var arrDistinctDate = lstUserActivities.UserActivity.Where(x => Convert.ToDateTime(x.Date) >= checkDate).Select(x => Convert.ToDateTime(x.Date).Date).Distinct().ToArray();
+                // var checkDate = DateTime.Now.AddDays(-pastDays);
+                int intVisitCount = 0;
+                foreach (var date in arrDistinctSessiionId)
+                {
+                    if (date != null)
+                    {
+                        intVisitCount = lstUserActivities.UserActivity.Count(x => !string.IsNullOrWhiteSpace(x.Date) && Convert.ToDateTime(x.Date).Date == date.Date);
+                        PagesPerViews objPagePerViews = new PagesPerViews();
+
+                        // objPagePerViews.TrackerId = distinctTrackerIdId.TrackerId;
+                        objPagePerViews.PagePerViewCount = intVisitCount;
+                        objPagePerViews.Date = Convert.ToDateTime(date.Date).ToString("MM-dd-yyyy");
+                        lstPagePerViews.Add(objPagePerViews);
+                    }
+                }
+
+            }
+            catch
+            {
+            }
+
+            return lstPagePerViews;
+        }
+
+        public List<PagesPerViews> GetPagesPerViews(UserActivities ltUserActivities, int pastDays = 7)
+        {
+            UserActivities lstUserActivities = ltUserActivities;
+
+            List<PagesPerViews> lstPagePerViews = new List<PagesPerViews>();
+
+            try
+            {
+                // lstUserActivities = DeSerializeObject<UserActivities>(USERACTIVITYFILEPATH);
                 var arrDistinctSessiionId = lstUserActivities.UserActivity.GroupBy(i => i.TrackerId, (key, group) => group.First()).ToArray();
                 var checkDate = DateTime.Now.AddDays(-pastDays);
                 int intVisitCount = 0;
@@ -291,7 +419,7 @@ namespace VZ.RestService
                 {
                     if (distinctTrackerIdId.TrackerId != null)
                     {
-                        intVisitCount = lstUserActivities.UserActivity.Where(x => Convert.ToDateTime(x.Date) >= checkDate).Count(x => x.TrackerId == distinctTrackerIdId.TrackerId);
+                        intVisitCount = lstUserActivities.UserActivity.Where(x => !string.IsNullOrWhiteSpace(x.Date) && Convert.ToDateTime(x.Date).Date >= checkDate.Date).Count(x => x.TrackerId == distinctTrackerIdId.TrackerId);
                         PagesPerViews objPagePerViews = new PagesPerViews();
 
                         objPagePerViews.TrackerId = distinctTrackerIdId.TrackerId;
@@ -309,25 +437,25 @@ namespace VZ.RestService
             return lstPagePerViews;
         }
 
-        public List<UniqueVisits> GetUniqueVisits(int pastDays = 7)
+        public List<UniqueVisits> GetUniqueVisits(UserActivities ltUserActivities, int pastDays = 7)
         {
-            UserActivities lstUserActivities = null;
+            UserActivities lstUserActivities = ltUserActivities;
 
             List<UniqueVisits> lstUniqueVisits = new List<UniqueVisits>();
             var checkDate = DateTime.Now.AddDays(-pastDays);
             try
             {
-                lstUserActivities = DeSerializeObject<UserActivities>(USERACTIVITYFILEPATH);
-                var arrDistinctUserId = lstUserActivities.UserActivity.GroupBy(i => i.UserId, (key, group) => group.First()).ToArray();
+                // lstUserActivities = DeSerializeObject<UserActivities>(USERACTIVITYFILEPATH);
+                var arrDistinctUserId = lstUserActivities.UserActivity.GroupBy(i => i.IPAddress, (key, group) => group.First()).ToArray();
 
-                var intTotalUniqueVisitCount = lstUserActivities.UserActivity.Where(x => Convert.ToDateTime(x.Date) >= checkDate).Select(x => x.UserId).Distinct().Count();
+                var intTotalUniqueVisitCount = lstUserActivities.UserActivity.Where(x => !string.IsNullOrWhiteSpace(x.Date) && Convert.ToDateTime(x.Date) >= checkDate).GroupBy(l => l.IPAddress).Count();
 
                 int intUniqueVisitCount = 0;
                 foreach (var distinctUserId in arrDistinctUserId)
                 {
-                    if (distinctUserId.SessionId != null)
+                    if (!string.IsNullOrWhiteSpace(distinctUserId.IPAddress) && !string.IsNullOrWhiteSpace(distinctUserId.Date))
                     {
-                        intUniqueVisitCount = lstUserActivities.UserActivity.Count(x => x.UserId == distinctUserId.UserId);
+                        intUniqueVisitCount = lstUserActivities.UserActivity.Where(s => !string.IsNullOrWhiteSpace(s.Date) && Convert.ToDateTime(s.Date).Date == Convert.ToDateTime(distinctUserId.Date).Date).GroupBy(l => l.IPAddress).Count();
                         UniqueVisits objPagePerViews = new UniqueVisits();
 
                         objPagePerViews.UserId = distinctUserId.UserId;
