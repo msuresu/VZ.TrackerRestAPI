@@ -34,7 +34,11 @@ namespace VZ.RestService
                     ResponseFormat = WebMessageFormat.Json,
                     UriTemplate = "GetPagePerformance")]
         List<PagePerformance> GetPagePerformance();
-
+        [WebInvoke(Method = "POST",
+                RequestFormat = WebMessageFormat.Json,
+                ResponseFormat = WebMessageFormat.Json,
+                UriTemplate = "UserActivityPerformance")]
+        string UserActivityPerformance(UserActivityPerformance objActPer);
         [OperationContract]
         [WebInvoke(UriTemplate = "Test", Method = "GET")]
         string Test();
@@ -44,6 +48,15 @@ namespace VZ.RestService
                     UriTemplate = "GetDashboard/{DomainName}")]
         TrackerDashboard GetDasboardContent(string DomainName);
 
+    }
+    [Serializable]
+    [DataContract]
+    public class UserActivityPerformance
+    {
+        [DataMember]
+        public UserActivity Activity { get; set; }
+        [DataMember]
+        public PagePerformance Performance { get; set; }
     }
     [Serializable]
     [DataContract]
@@ -658,11 +671,11 @@ namespace VZ.RestService
                     newDoc.Load(PAGEPERFORMANCETEMPFILEPATH);
 
                     //Use Xpath to specify node
-                    XmlNode insertNode = xmldoc.SelectSingleNode("PerformanceActivities");
-                    XmlNode newObj = newDoc.SelectSingleNode("PerformanceActivity");
-                    XmlElement news = xmldoc.CreateElement("PerformanceActivity");   // creating the wrapper news node
+                    XmlNode insertNode = xmldoc.SelectSingleNode("PagePerformances");
+                    XmlNode newObj = newDoc.SelectSingleNode("PagePerformance");
+                    XmlElement news = xmldoc.CreateElement("PagePerformance");   // creating the wrapper news node
                     //Import the node into the context of the new document. NB the second argument = true imports all children of the node, too
-                    XmlNode importNewsItem = xmldoc.ImportNode(newDoc.SelectSingleNode("PerformanceActivity"), true);
+                    XmlNode importNewsItem = xmldoc.ImportNode(newDoc.SelectSingleNode("PagePerformance"), true);
                     //news.AppendChild(importNewsItem);
                     insertNode.AppendChild(importNewsItem);
 
