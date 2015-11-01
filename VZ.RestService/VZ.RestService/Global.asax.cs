@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.Routing;
 using System.Web.Security;
 using System.Web.SessionState;
+using System.ServiceModel;
+
 
 namespace VZ.RestService
 {
@@ -14,7 +16,7 @@ namespace VZ.RestService
 
         protected void Application_Start(object sender, EventArgs e)
         {
-           // RouteTable.Routes.Add(new ServiceRoute("", new WebServiceHostFactory(), typeof(PersonService)));
+           // RouteTable.Routes.Add(new ServiceRoute("", new WebServiceHostFactory(), typeof(TrackerRestService)));
         }
 
         protected void Session_Start(object sender, EventArgs e)
