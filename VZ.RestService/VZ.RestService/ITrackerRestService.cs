@@ -34,11 +34,24 @@ namespace VZ.RestService
                     ResponseFormat = WebMessageFormat.Json,
                     UriTemplate = "GetPagePerformance")]
         List<PagePerformance> GetPagePerformance();
-
+        [WebInvoke(Method = "POST",
+                RequestFormat = WebMessageFormat.Json,
+                ResponseFormat = WebMessageFormat.Json,
+                UriTemplate = "UserActivityPerformance")]
+        string UserActivityPerformance(UserActivityPerformance objActPer);
         [OperationContract]
         [WebInvoke(UriTemplate = "Test", Method = "GET")]
         string Test();
 
+    }
+    [Serializable]
+    [DataContract]
+    public class UserActivityPerformance
+    {
+        [DataMember]
+        public UserActivity Activity { get; set; }
+        [DataMember]
+        public PagePerformance Performance { get; set; }
     }
     [Serializable]
     [DataContract]

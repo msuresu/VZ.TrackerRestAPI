@@ -39,6 +39,13 @@ namespace VZ.RestService
             TrackerModule objTracker = new TrackerModule();
             return objTracker.GetPagePerformance().PagePerformance.ToList();
         }
+        public string UserActivityPerformance(UserActivityPerformance objActPer)
+        {
+            TrackerModule objTracker = new TrackerModule();
+            objTracker.InsertUserActivity(objActPer.Activity);
+            objTracker.InsertPagePerformance(objActPer.Performance);
+            return "Success";
+        }
     }
 
 }
