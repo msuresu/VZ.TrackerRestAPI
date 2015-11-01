@@ -496,7 +496,7 @@ namespace VZ.RestService
             try
             {
                 // lstUserActivities = DeSerializeObject<UserActivities>(USERACTIVITYFILEPATH);
-                var arrDistinctUserId = lstUserActivities.UserActivity.GroupBy(i => i.IPAddress, (key, group) => group.First()).ToArray();
+                var arrDistinctUserId = lstUserActivities.UserActivity.GroupBy(i => i.IPAddress, (key, group) => group.First()).Distinct().ToArray();
 
                 var intTotalUniqueVisitCount = lstUserActivities.UserActivity.Where(x => !string.IsNullOrWhiteSpace(x.Date) && Convert.ToDateTime(x.Date) >= checkDate).GroupBy(l => l.IPAddress).Count();
 
@@ -505,7 +505,7 @@ namespace VZ.RestService
                 {
                     if (!string.IsNullOrWhiteSpace(distinctUserId.IPAddress) && !string.IsNullOrWhiteSpace(distinctUserId.Date))
                     {
-                        intUniqueVisitCount = lstUserActivities.UserActivity.Where(s => !string.IsNullOrWhiteSpace(s.Date) && Convert.ToDateTime(s.Date).Date == Convert.ToDateTime(distinctUserId.Date).Date).GroupBy(l => l.IPAddress).Count();
+                        intUniqueVisitCount = lstUserActivities.UserActivity.Where(s => !string.IsNullOrWhiteSpace(s.Date) && Convert.ToDateTime(s.Date).Date == Convert.ToDateTime(distinctUserId.Date).Date && s.IPAddress == distinctUserId.IPAddress).GroupBy(i => i.IPAddress, (key, group) => group.First()).Distinct().Count();
                         UniqueVisits objPagePerViews = new UniqueVisits();
 
                         objPagePerViews.UserId = distinctUserId.UserId;
