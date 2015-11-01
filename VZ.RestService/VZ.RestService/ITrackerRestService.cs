@@ -634,11 +634,11 @@ namespace VZ.RestService
                     newDoc.Load(PAGEPERFORMANCETEMPFILEPATH);
 
                     //Use Xpath to specify node
-                    XmlNode insertNode = xmldoc.SelectSingleNode("PerformanceActivities");
-                    XmlNode newObj = newDoc.SelectSingleNode("PerformanceActivity");
-                    XmlElement news = xmldoc.CreateElement("PerformanceActivity");   // creating the wrapper news node
+                    XmlNode insertNode = xmldoc.SelectSingleNode("PagePerformances");
+                    XmlNode newObj = newDoc.SelectSingleNode("PagePerformance");
+                    XmlElement news = xmldoc.CreateElement("PagePerformance");   // creating the wrapper news node
                     //Import the node into the context of the new document. NB the second argument = true imports all children of the node, too
-                    XmlNode importNewsItem = xmldoc.ImportNode(newDoc.SelectSingleNode("PerformanceActivity"), true);
+                    XmlNode importNewsItem = xmldoc.ImportNode(newDoc.SelectSingleNode("PagePerformance"), true);
                     //news.AppendChild(importNewsItem);
                     insertNode.AppendChild(importNewsItem);
 
