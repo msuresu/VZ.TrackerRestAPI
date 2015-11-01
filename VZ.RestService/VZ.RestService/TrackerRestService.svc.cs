@@ -46,6 +46,11 @@ namespace VZ.RestService
             objTracker.InsertPagePerformance(objActPer.Performance);
             return "Success";
         }
+        public TrackerDashboard GetDasboardContent(string DomainName)
+        {
+            TrackerModule Objtracker = new TrackerModule();
+            return Objtracker.GetDasboardConetnt(DomainName);
+        }
     }
 
 }
