@@ -3,9 +3,9 @@
   <UserActivity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <ActivityType>PageType</ActivityType>
     <TrackerId>dLAn9Hkwdy</TrackerId>
-    <DomainName>mobileiron.com</DomainName>
+    <DomainName>vztrackerapp.azurewebsite.net</DomainName>
     <Date>2015-10-28T20:26:31.519Z</Date>
-    <PagePath>http://mobileiron.com/</PagePath>
+    <PagePath>http://vztrackerapp.azurewebsite.net/</PagePath>
     <PageTitle>Mobile App Dev</PageTitle>
     <PageType />
     <State />
@@ -19,9 +19,9 @@
   <UserActivity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <ActivityType>PageType</ActivityType>
     <TrackerId>dLAn9Hkwdp</TrackerId>
-    <DomainName>mobileiron.com</DomainName>
+    <DomainName>vztrackerapp.azurewebsite.net</DomainName>
     <Date>2015-10-28T20:26:31.519Z</Date>
-    <PagePath>http://mobileiron.com/</PagePath>
+    <PagePath>http://vztrackerapp.azurewebsite.net/</PagePath>
     <PageTitle>Mobile App Dev</PageTitle>
     <PageType />
     <State />
@@ -35,9 +35,9 @@
   <UserActivity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <ActivityType>Action</ActivityType>
     <TrackerId>dLAn9Hkwdp</TrackerId>
-    <DomainName>mobileiron.com</DomainName>
+    <DomainName>vztrackerapp.azurewebsite.net</DomainName>
     <Date>2015-10-28T20:26:31.519Z</Date>
-    <PagePath>http://mobileiron.com/</PagePath>
+    <PagePath>http://vztrackerapp.azurewebsite.net/</PagePath>
     <PageTitle>Mobile App Dev</PageTitle>
     <PageType />
     <State />
