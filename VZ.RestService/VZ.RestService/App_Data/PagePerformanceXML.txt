@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 <PagePerformances>
   <PagePerformance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <PagePath>http://localhost:55020/</PagePath>
+    <PagePath>http://vztrackerapp.azurewebsite.net/</PagePath>
     <StartTime>2015-10-31T17:34:11.744Z</StartTime>
     <EndTime>2015-10-31T17:34:14.192Z</EndTime>
     <LoadTime>0.026</LoadTime>
      <BrowserInfo>IE 11</BrowserInfo>
   </PagePerformance>
   <PagePerformance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <PagePath>http://localhost:53373/TrackerRestService.svc/GetPagePerformance</PagePath>
+    <PagePath>http://vztrackerapp.azurewebsite.net</PagePath>
     <StartTime>2015-10-31T20:26:25.655Z</StartTime>
     <EndTime>2015-10-31T20:26:31.519Z</EndTime>
     <LoadTime>0</LoadTime>
      <BrowserInfo>IE 11</BrowserInfo>
   </PagePerformance>
   <PagePerformance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <PagePath>http://localhost:55020/</PagePath>
+    <PagePath>http://vztrackerapp.azurewebsite.net/</PagePath>
     <StartTime>2015-11-01T00:29:19.854Z</StartTime>
     <EndTime>2015-11-01T00:29:21.283Z</EndTime>
     <LoadTime>0.029</LoadTime>
