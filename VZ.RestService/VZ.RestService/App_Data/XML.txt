@@ -33,7 +33,7 @@
     <ElementType >button</ElementType>
   </UserActivity>
   <UserActivity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <ActivityType>ActionType</ActivityType>
+    <ActivityType>Action</ActivityType>
     <TrackerId>dLAn9Hkwdp</TrackerId>
     <DomainName>mobileiron.com</DomainName>
     <Date>2015-10-28T20:26:31.519Z</Date>
@@ -97,7 +97,7 @@
     <ElementType >text</ElementType>
   </UserActivity>
   <UserActivity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <ActivityType>ActionType</ActivityType>
+    <ActivityType>Action</ActivityType>
     <TrackerId>dLAn9HMokp</TrackerId>
     <DomainName>vztrackerapp.azurewebsite.net</DomainName>
     <Date>2015-10-30T20:26:31.519Z</Date>
@@ -129,7 +129,7 @@
     <ElementType >button</ElementType>
   </UserActivity>
   <UserActivity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <ActivityType>ActionType</ActivityType>
+    <ActivityType>Action</ActivityType>
     <TrackerId>dUAn9Hkokp</TrackerId>
     <DomainName>vztrackerapp.azurewebsite.net</DomainName>
     <Date>2015-10-30T20:26:31.519Z</Date>
@@ -161,7 +161,7 @@
     <ElementType >button</ElementType>
   </UserActivity>
   <UserActivity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <ActivityType>ActionType</ActivityType>
+    <ActivityType>Action</ActivityType>
     <TrackerId>dLAn9Hkokp</TrackerId>
     <DomainName>vztrackerapp.azurewebsite.net</DomainName>
     <Date>2015-10-31T20:26:31.519Z</Date>
@@ -209,7 +209,7 @@
     <ElementType >button</ElementType>
   </UserActivity>
   <UserActivity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <ActivityType>ActionType</ActivityType>
+    <ActivityType>Action</ActivityType>
     <TrackerId>dLAn9HkLkp</TrackerId>
     <DomainName>vztrackerapp.azurewebsite.net</DomainName>
     <Date>2015-11-01T20:26:31.519Z</Date>
